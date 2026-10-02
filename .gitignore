@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Denki-Lokaldaten (Gedächtnis bleibt auf dem Rechner des Nutzers)
+data/
+*.sqlite3
+*.db
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
