@@ -2,6 +2,12 @@
 
 **Denki – lokale, mitlernende KI für Windows.** Erfunden von Dennis C. Großer · GroTeck
 
+> [!NOTE]
+> **Experiment, nicht Denki 2.0.** Dieser Branch enthält einen Web-Prototyp, der als Versuch
+> entstanden ist. Er lernt automatisch aus jeder Aussage und unterscheidet sich damit vom
+> eigentlichen Denki. Das echte Denki (Windows-Programm) gibt es unter
+> [Releases](https://github.com/dcgrosi/Denki-App/releases/latest).
+
 Denki ist eine KI, die dem Nutzer gehört: Sie läuft vollständig auf dem eigenen Rechner,
 lernt aus jedem Gespräch dazu und macht ihr Gedächtnis sichtbar, korrigierbar und löschbar.
 Kein Konto, keine Cloud, keine Telemetrie.
