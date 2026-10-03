@@ -1,6 +1,6 @@
 # Denki
 
-**Denki – lokale, mitlernende KI für Windows.** Erfunden von Dennis C. Großer · GroTeck
+**Denki – lokale, mitlernende KI für Windows.** Erfunden von Dennis C. Großer · GroTeck\
 Ausgearbeitet mit Kimi, Opus und Luna
 
 Denki merkt sich, was du ihr sagst – aber nur, wenn du „ja“ sagst. Alles bleibt auf deinem PC.
@@ -64,8 +64,3 @@ Denki enthält freie Bauteile (Python, Tcl/Tk, SQLite, llama.cpp, LLVM OpenMP). 
 im Installationsordner in `LIZENZEN.txt`.
 
 Kostenlos und ohne Gewähr. Nutzung auf eigene Verantwortung.
-
----
-
-Hinweis: Der Branch [`web-prototyp`](https://github.com/dcgrosi/Denki-App/tree/web-prototyp) enthält einen
-Web-Prototyp, der als Experiment entstanden ist. Er ist nicht Denki 2.0.
