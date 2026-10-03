@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Denki · lokale, mitlernende KI</title>
+<meta name="description" content="Denki – lokale, mitlernende KI für Windows. Erfunden von Dennis C. Großer · GroTeck." />
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ======================= Kopfzeile ======================= -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M13 2 4.5 13.2h5.2L9.4 22l9-11.6h-5.4L13 2Z" fill="currentColor"/></svg>
+      </span>
+      <div class="brand-text">
+        <h1>Denki</h1>
+        <p>lokale, mitlernende KI für Windows</p>
+      </div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="chip" id="brainChip" title="Aktives KI-Backend">
+        <span class="dot"></span><span id="brainLabel">Backend wird geprüft …</span>
+      </div>
+      <div class="chip" id="privacyChip" title="Es werden keine Daten an externe Dienste gesendet">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m8.8 12 2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>100 % lokal</span>
+      </div>
+      <div class="chip ghost" id="masteryChip" title="Lernfortschritt">
+        <span>Lernfortschritt</span><strong id="masteryValue">0 %</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================= Linke Spalte ======================= -->
+  <aside class="sidebar">
+    <button class="btn primary block" id="newChatBtn">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Neues Gespräch
+    </button>
+
+    <div class="side-section">
+      <h2>Verlauf</h2>
+      <ul class="sessions" id="sessionList"><li class="empty">Noch keine Gespräche.</li></ul>
+    </div>
+
+    <div class="side-section">
+      <h2>Denki-Gedächtnis</h2>
+      <div class="kv"><span>Aktive Erinnerungen</span><strong id="statFacts">0</strong></div>
+      <div class="kv"><span>Gelernte Aussagen</span><strong id="statLearned">0</strong></div>
+      <div class="kv"><span>Abrufe</span><strong id="statRecalled">0</strong></div>
+      <div class="kv"><span>Korrigiert / ersetzt</span><strong id="statSuperseded">0</strong></div>
+      <div class="kv"><span>Vergessen</span><strong id="statForgotten">0</strong></div>
+      <div class="kv"><span>Nachrichten</span><strong id="statMessages">0</strong></div>
+    </div>
+
+    <div class="side-section topics">
+      <h2>Hauptthemen</h2>
+      <div class="topic-cloud" id="topicCloud"><span class="muted">–</span></div>
+    </div>
+
+    <footer class="sidebar-footer">
+      <p><strong>Denki</strong> · Prototyp v0.1</p>
+      <p class="muted">Erfunden von Dennis C. Großer · GroTeck</p>
+      <p class="muted tiny">Daten: <code id="dbPath">data/denki.sqlite3</code></p>
+    </footer>
+  </aside>
+
+  <!-- ======================= Chat ======================= -->
+  <main class="chat">
+    <div class="chat-scroll" id="chatScroll">
+      <div class="welcome" id="welcome">
+        <div class="welcome-badge">⚡ Mitlern-Prototyp</div>
+        <h2>Hallo, ich bin Denki.</h2>
+        <p>
+          Ich laufe komplett lokal und merke mir, was du mir erzählst – sichtbar,
+          bestätigbar und jederzeit löschbar. Rechts im Panel kannst du mir beim
+          Lernen zusehen.
+        </p>
+        <div class="suggestions" id="suggestions">
+          <button class="suggestion">Ich heiße Dennis und arbeite bei GroTeck.</button>
+          <button class="suggestion">Ich wohne in Köln und nutze Windows 11.</button>
+          <button class="suggestion">Mein Lieblingseditor ist VS Code, ich mag keine Emojis.</button>
+          <button class="suggestion">Ich möchte Denki als Desktop-App veröffentlichen.</button>
+          <button class="suggestion">Was weißt du über mich?</button>
+          <button class="suggestion">Antworte bitte kurz und sieze mich.</button>
+        </div>
+        <p class="muted tiny">
+          Hinweis: Im Prototyp antwortet eine eingebaute Mock-KI. Sobald lokal
+          <code>Ollama</code> läuft, übernimmt automatisch ein lokales LLM.
+        </p>
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="typing" id="typing" hidden>
+        <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+        <em>Denki denkt lokal nach …</em>
+      </div>
+    </div>
+
+    <form class="composer" id="composer">
+      <textarea id="input" rows="1" placeholder="Erzähl mir etwas – ich lerne mit …" autocomplete="off"></textarea>
+      <button type="submit" class="btn primary send" id="sendBtn" title="Senden (Enter)">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 12h14m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <p class="composer-hint"><kbd>Enter</kbd> senden · <kbd>Shift</kbd>+<kbd>Enter</kbd> neue Zeile</p>
+  </main>
+
+  <!-- ======================= Gedächtnis-Panel ======================= -->
+  <aside class="panel">
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="memory" role="tab">Gedächtnis</button>
+      <button class="tab" data-tab="log" role="tab">Lern-Log</button>
+      <button class="tab" data-tab="insights" role="tab">Insights</button>
+    </nav>
+
+    <section class="tab-body active" id="tab-memory" role="tabpanel">
+      <div class="panel-toolbar">
+        <input type="search" id="factSearch" placeholder="Erinnerungen durchsuchen …" />
+        <select id="statusFilter" title="Status filtern">
+          <option value="active">aktiv</option>
+          <option value="all">alle</option>
+          <option value="superseded">ersetzt</option>
+          <option value="forgotten">vergessen</option>
+        </select>
+      </div>
+      <ul class="facts" id="factList"><li class="empty">Noch nichts gelernt.</li></ul>
+      <div class="panel-actions">
+        <button class="btn ghost sm" id="confirmAllBtn" title="Alle aktiven Erinnerungen bestätigen">✓ Alle bestätigen</button>
+        <button class="btn danger sm" id="resetBtn" title="Gedächtnis vollständig löschen">Gedächtnis leeren</button>
+      </div>
+    </section>
+
+    <section class="tab-body" id="tab-log" role="tabpanel">
+      <ul class="events" id="eventList"><li class="empty">Noch keine Lern-Ereignisse.</li></ul>
+    </section>
+
+    <section class="tab-body" id="tab-insights" role="tabpanel">
+      <div class="insight">
+        <h3>Lernfortschritt</h3>
+        <div class="meter big"><span id="masteryBar" style="width:0%"></span></div>
+        <p class="muted tiny" id="masteryExplain">Durchschnittliches Vertrauen × Wiederholungsstärke.</p>
+      </div>
+      <div class="insight">
+        <h3>Kategorien</h3>
+        <ul class="bars" id="categoryBars"><li class="empty">–</li></ul>
+      </div>
+      <div class="insight">
+        <h3>Wie Denki lernt</h3>
+        <ol class="how">
+          <li><strong>Extraktion</strong> – Regeln erkennen Aussagen über dich.</li>
+          <li><strong>Verstärkung</strong> – Wiederholung erhöht das Vertrauen.</li>
+          <li><strong>Korrektur</strong> – Widerspruch ersetzt den alten Fakt (mit Historie).</li>
+          <li><strong>Vergessen</strong> – auf Zuruf oder durch Zeit-Decay.</li>
+          <li><strong>Abruf</strong> – Relevanz = Ähnlichkeit + Vertrauen + Frische.</li>
+        </ol>
+      </div>
+      <div class="insight">
+        <h3>Backend</h3>
+        <div class="kv"><span>Modus</span><strong id="insightBrain">–</strong></div>
+        <div class="kv"><span>Modell</span><strong id="insightModel">–</strong></div>
+        <div class="kv"><span>Ollama</span><strong id="insightOllama">–</strong></div>
+        <div class="kv"><span>Intent-Treffer</span><strong id="insightIntent">–</strong></div>
+        <p class="muted tiny">Umschalten: <code>DENKI_BRAIN=mock|ollama|auto</code></p>
+      </div>
+    </section>
+  </aside>
+</div>
+
+<div class="toast-stack" id="toasts" aria-live="polite"></div>
+
+<script src="/static/app.js" defer></script>
+</body>
+</html>
