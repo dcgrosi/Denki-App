@@ -30,14 +30,15 @@ Optionale Flags:
 | --- | --- |
 | `--brain auto\|mock\|ollama` | KI-Backend wählen (Standard `auto`: Ollama wenn lokal verfügbar, sonst Mock) |
 | `--ollama-model llama3.1` | Modell für lokale Inferenz |
-| `--port 8000` / `--host 0.0.0.0` | Server-Bindung |
+| `--port 8000` | Port (Standard `8000`) |
+| `--host 127.0.0.1` | Bind-Adresse. Standard: nur dieser Rechner. `0.0.0.0` öffnet Denki **ohne Passwort** für alle Geräte im Netzwerk (Start-Warnung) |
 | `--data-dir <pfad>` | Ort der Gedächtnis-Datenbank (z. B. `%APPDATA%\Denki`) |
 | `--reload` | Auto-Reload während der Entwicklung |
 
 Tests:
 
 ```bash
-pytest -q          # 46 Tests: Extraktion, Verstärkung, Korrektur, Vergessen, API
+pytest -q          # 47 Tests: Extraktion, Verstärkung, Korrektur, Vergessen, API
 ```
 
 Terminal-Demo ohne Browser:
@@ -78,7 +79,7 @@ Denki-App/
 │   ├── brain.py               MockBrain (offline) + OllamaBrain (lokal), Profil-Dekorierung
 │   ├── conversation.py        Sitzungen und Nachrichten
 │   └── main.py                FastAPI-App (REST + statische UI)
-├── frontend/static/           UI ohne Build-Schritt: index.html, styles.css, app.js
+├── frontend/static/           UI ohne Build-Schritt: index.html, styles.css, app.js, fonts/
 ├── scripts/demo.py            Dialog-Demo im Terminal
 └── tests/                     pytest-Suiten (Gedächtnis, Gehirn, API, Lernqualität)
 ```
@@ -182,6 +183,9 @@ des Modells verändert nichts am Lernverhalten.
 * Alle Daten liegen in einer lokalen SQLite-Datei (`data/denki.sqlite3`, per
   `DENKI_DATA_DIR` verschiebbar, z. B. nach `%APPDATA%\Denki`).
 * Keine externen Aufrufe außer einem optionalen, lokalen Ollama-Endpunkt (`127.0.0.1`).
+  Auch die Schriften (Inter, JetBrains Mono, SIL OFL 1.1) liegen lokal in `frontend/static/fonts/`.
+* Der Server lauscht standardmäßig nur auf `127.0.0.1` – andere Geräte im Netzwerk erreichen
+  Denki nicht. Erst `--host 0.0.0.0` öffnet ihn bewusst (ohne Anmeldung, daher mit Warnung).
 * Jede Erinnerung ist im UI einsehbar, bearbeitbar, bestätigbar und löschbar.
 * „Gedächtnis leeren“ entfernt Fakten, Verlauf, Themen und Lern-Protokoll vollständig.
 

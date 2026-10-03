@@ -58,3 +58,15 @@ def test_ui_wird_ausgeliefert(client):
     assert response.status_code == 200
     assert "Denki" in response.text
     assert client.get("/static/app.js").status_code == 200
+
+
+def test_ui_laedt_nichts_von_externen_servern(client):
+    """Datenschutz: UI und Schriften kommen ausschließlich vom lokalen Server."""
+    import re
+
+    html = client.get("/").text
+    assert not re.search(r"""(src|href)=["']?(https?:)?//""", html)
+    css = client.get("/static/fonts/fonts.css")
+    assert css.status_code == 200
+    for font in re.findall(r'url\("([^"]+)"\)', css.text):
+        assert client.get(f"/static/fonts/{font}").status_code == 200

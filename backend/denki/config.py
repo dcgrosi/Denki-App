@@ -62,8 +62,8 @@ OLLAMA_URL = os.environ.get("DENKI_OLLAMA_URL", "http://127.0.0.1:11434")
 OLLAMA_MODEL = os.environ.get("DENKI_OLLAMA_MODEL", "llama3.1")
 OLLAMA_TIMEOUT = float(os.environ.get("DENKI_OLLAMA_TIMEOUT", "0.6"))
 
-# Server
-HOST = os.environ.get("DENKI_HOST", "0.0.0.0")
+# Server (Standard: nur dieser Rechner; 0.0.0.0 öffnet Denki fürs Netzwerk)
+HOST = os.environ.get("DENKI_HOST") or "127.0.0.1"
 PORT = int(os.environ.get("DENKI_PORT", "8000"))
 
 
