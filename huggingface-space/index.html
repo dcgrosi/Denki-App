@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Denki – lokale KI für Windows</title>
+<meta name="description" content="Denki ist eine lokale, mitlernende KI für Windows. Sie merkt sich, was du ihr sagst – aber nur, wenn du „ja“ sagst. Alles bleibt auf deinem PC.">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --text: #1d1f23;
+    --muted: #5b616b;
+    --border: #e3e1dc;
+    --accent: #1f5fae;
+    --accent-text: #ffffff;
+    --code-bg: #f1efea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --surface: #1d2024;
+      --text: #e9eaec;
+      --muted: #a2a8b1;
+      --border: #30343a;
+      --accent: #7fb2ff;
+      --accent-text: #0f1420;
+      --code-bg: #262a30;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 16px 32px; }
+  h1 { font-size: 2.6rem; line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.25rem; margin: 0 0 12px; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); }
+  .lead { font-size: 1.2rem; margin-bottom: 4px; }
+  .byline { color: var(--muted); margin-bottom: 28px; }
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--accent-text);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 10px;
+  }
+  .cta:hover { filter: brightness(1.08); }
+  .cta-note { color: var(--muted); font-size: 0.95rem; margin-top: 10px; }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 36px 0;
+  }
+  .card, section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .card strong { display: block; margin-bottom: 4px; }
+  .card span { color: var(--muted); font-size: 0.95rem; }
+  section { margin-bottom: 16px; }
+  ol, ul { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+  .note { color: var(--muted); font-size: 0.95rem; }
+  code {
+    background: var(--code-bg);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 0.85rem;
+    overflow-wrap: anywhere;
+  }
+  footer { color: var(--muted); font-size: 0.9rem; margin-top: 32px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Denki</h1>
+    <p class="lead">Lokale, mitlernende KI für Windows.</p>
+    <p class="byline">Erfunden von Dennis C. Großer · GroTeck<br>Ausgearbeitet mit Kimi, Opus und Luna</p>
+    <a class="cta" href="https://github.com/dcgrosi/Denki-App/releases/latest">Denki 2.0 herunterladen</a>
+    <p class="cta-note">Windows 10 oder 11 (64 Bit) · ca. 23 MB · kostenlos</p>
+  </header>
+
+  <div class="features">
+    <div class="card"><strong>Lernt mit</strong><span>Denki merkt sich, was du ihr sagst – aber nur, wenn du „ja“ sagst.</span></div>
+    <div class="card"><strong>Bleibt bei dir</strong><span>Alles bleibt auf deinem PC. Denki verschickt keine Daten.</span></div>
+    <div class="card"><strong>Sprachmodell freiwillig</strong><span>Mit Sprachmodell versteht Denki freie Sätze und kann plaudern.</span></div>
+  </div>
+
+  <section>
+    <h2>Installation</h2>
+    <ol>
+      <li><code>Denki-Installation-2.exe</code> herunterladen und starten</li>
+      <li>Falls Windows warnt („Unbekannter Herausgeber“): „Weitere Informationen“ → „Trotzdem ausführen“</li>
+      <li>Denki liegt danach auf dem Desktop</li>
+      <li>Beim ersten Start fragt Denki nach deinem Namen</li>
+    </ol>
+    <p class="note">Startet das Sprachmodell nicht: „Microsoft Visual C++ Redistributable (x64)“ von Microsoft installieren.</p>
+  </section>
+
+  <section>
+    <h2>Sprachmodell (freiwillig)</h2>
+    <p>Ohne Sprachmodell versteht Denki feste Sätze („hilfe“ zeigt sie). Mit Sprachmodell versteht Denki auch freie Sätze.</p>
+    <p>Entwickelt mit <a href="https://huggingface.co/Boldt/Boldt-1B-IT-Preview">Boldt-1B-IT-Preview</a> – deutsches Sprachmodell der Humboldt-Universität zu Berlin (Lizenz: Apache 2.0). Das Modell ist nicht enthalten:</p>
+    <ol>
+      <li><a href="https://huggingface.co/flozen1981/boldt-1b-it-preview-gguf/resolve/main/boldt-1b-it-preview-Q4_K_M.gguf">GGUF-Datei herunterladen</a> (ca. 740 MB, umgewandelt von flozen1981 – nicht vom Hersteller)</li>
+      <li>In Denki auf „Modell“ klicken und die Datei wählen</li>
+    </ol>
+    <p class="note">Andere GGUF-Modelle funktionieren grundsätzlich auch. Antworten des Sprachmodells (grau) können falsch sein und werden nie gespeichert.</p>
+  </section>
+
+  <section>
+    <h2>Virenprüfung</h2>
+    <p>SHA-256 von <code>Denki-Installation-2.exe</code>:<br><code>505e8157e383e3829d8127891e71088aac7a2c4a8b0a401d18303f695259ba30</code></p>
+    <p><a href="https://www.virustotal.com/gui/file/505e8157e383e3829d8127891e71088aac7a2c4a8b0a401d18303f695259ba30">VirusTotal-Bericht</a> – Stand 02.10.2026: 2 von 71 Scannern melden einen Verdacht (Trapmine, Zillya). Microsoft Defender und die anderen großen Scanner melden nichts.</p>
+    <p class="note">Solche Einzelmeldungen sind bei Python-Programmen, die mit PyInstaller gepackt sind, häufig Fehlalarme.</p>
+  </section>
+
+  <section>
+    <h2>Deinstallieren</h2>
+    <p>Windows → Einstellungen → Apps → Denki. Dein Gedächtnis bleibt dabei erhalten.</p>
+  </section>
+
+  <section>
+    <h2>Lizenzen</h2>
+    <p>Denki enthält freie Bauteile (Python, Tcl/Tk, SQLite, llama.cpp, LLVM OpenMP). Die Lizenztexte liegen im Installationsordner in <code>LIZENZEN.txt</code>.</p>
+  </section>
+
+  <footer>
+    <p>Kostenlos und ohne Gewähr. Nutzung auf eigene Verantwortung.</p>
+    <p><a href="https://github.com/dcgrosi/Denki-App">Denki auf GitHub</a> · Diese Seite lädt keine externen Inhalte.</p>
+  </footer>
+</main>
+</body>
+</html>
