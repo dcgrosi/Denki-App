@@ -1,0 +1,14 @@
+name: Wunsch oder Idee
+description: Vorschlag für eine neue Funktion in Denki.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: wunsch
+    attributes:
+      label: Was wünschst du dir?
+    validations:
+      required: true
+  - type: textarea
+    id: wofuer
+    attributes:
+      label: Wofür brauchst du das?

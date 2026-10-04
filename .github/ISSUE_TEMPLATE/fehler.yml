@@ -1,0 +1,52 @@
+name: Fehler melden
+description: Etwas in Denki funktioniert nicht wie erwartet.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Danke fürs Melden! Bitte keine persönlichen Daten aus deinem Gedächtnis einfügen – diese Seite ist öffentlich.
+  - type: textarea
+    id: passiert
+    attributes:
+      label: Was ist passiert?
+    validations:
+      required: true
+  - type: textarea
+    id: erwartet
+    attributes:
+      label: Was hast du erwartet?
+  - type: textarea
+    id: schritte
+    attributes:
+      label: So kann man es nachstellen
+      placeholder: |
+        1. Denki starten
+        2. …
+  - type: input
+    id: version
+    attributes:
+      label: Denki-Version
+      placeholder: z. B. 2.0
+    validations:
+      required: true
+  - type: dropdown
+    id: windows
+    attributes:
+      label: Windows-Version
+      options:
+        - Windows 11
+        - Windows 10
+    validations:
+      required: true
+  - type: dropdown
+    id: modell
+    attributes:
+      label: Sprachmodell
+      options:
+        - keins
+        - Boldt-1B-IT-Preview
+        - anderes GGUF-Modell
+  - type: textarea
+    id: meldung
+    attributes:
+      label: Fehlermeldung oder Bildschirmfoto (freiwillig)
