@@ -1,5 +1,8 @@
 # Denki
 
+[![Neueste Version](https://img.shields.io/github/v/release/dcgrosi/Denki-App?label=Version)](https://github.com/dcgrosi/Denki-App/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/dcgrosi/Denki-App/total?label=Downloads)](https://github.com/dcgrosi/Denki-App/releases)
+
 **Denki – lokale, mitlernende KI für Windows.** Erfunden von Dennis C. Großer · GroTeck\
 Ausgearbeitet mit Kimi, Opus und Luna
 
